@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ContentType {
+  kdrama
+  movie
+  anime
+}
+
+enum Status {
+  watched
+  watchlist
+}
+
+model Content {
+  id          Int         @id @default(autoincrement())
+  name        String      @unique
+  type        ContentType
+  year        Int
+  description String
+  episodes    Int
+  seasons     Int?
+
+  watchlogs     Watchlog[]
+  contentActors ContentActors[]
+}
+
+model Watchlog {
+  id         Int      @id @default(autoincrement())
+  content_id Int
+  content    Content  @relation(fields: [content_id], references: [id], onDelete: Cascade)
+  status     Status
+  notes      String?
+  createdAt  DateTime @default(now())
+}
+
+model Actor {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  contentActors ContentActors[]
+}
+
+// this is a join table
+model ContentActors {
+  id         Int     @id @default(autoincrement())
+  content_id Int
+  content    Content @relation(fields: [content_id], references: [id], onDelete: Cascade)
+  actor_id   Int
+  actor      Actor   @relation(fields: [actor_id], references: [id], onDelete: Cascade)
+}
