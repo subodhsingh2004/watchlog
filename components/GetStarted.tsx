@@ -61,7 +61,7 @@ export default function GetStarted() {
 
     return (
 
-        <div style={{ fontFamily: "var(--font-geist-mono)" }} className="w-full h-full flex flex-col">
+        <div style={{ fontFamily: "var(--font-geist-mono)" }} className="w-full h-full flex flex-col relative">
 
             <div className="flex flex-col gap-1">
                 {
@@ -106,7 +106,7 @@ export default function GetStarted() {
                 </div>
             }
 
-            <p className="absolute bottom-4 right-4 text-sm text-[#303030]">v1.0.0</p>
+            <p className="absolute bottom-0 right-0 text-sm text-[#303030]">v1.0.0</p>
 
         </div>
     );

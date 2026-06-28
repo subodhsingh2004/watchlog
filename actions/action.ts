@@ -3,6 +3,7 @@ import { Prisma, Status } from "@/app/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import "dotenv/config";
+import { cookies } from "next/headers";
 
 export async function getWatchedContent() {
     const response = await prisma.content.findMany();
@@ -18,6 +19,15 @@ export async function getDetailsOfTheContent(name: string) {
 
 export async function verifyPassword(password: string) {
     const isValid = await bcrypt.compare(password, process.env.PASSWORD!)
+    if (!isValid) return false;
+
+    (await cookies()).set("isAuthenticated", "true", {
+        secure: true,
+        httpOnly: true,
+        sameSite: "strict",
+        path: "/",
+        maxAge: 60 * 30
+    });
     return isValid;
 }
 

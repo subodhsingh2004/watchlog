@@ -53,15 +53,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-
-{/* <html
-  lang="en"
-  className={`${geistMono.variable} ${playfairDisplay.variable} ${jetbrainsMono.variable} antialiased`}
->
-  <body style={{ fontFamily: "var(--font-geist-mono)" }} className="h-dvh w-full flex justify-center items-center">
-
-    <div className="flex w-250 h-160 overflow-y-scroll">{children}</div>
-
-  </body>
-</html> */}
